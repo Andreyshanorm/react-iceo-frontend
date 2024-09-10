@@ -7,7 +7,7 @@ const getAll = async (req, res) => {
 
         res.status(200).json(employees)
     } catch (error) {
-        res.status(500).json({message: 'Что то пошло не так....'})
+        res.status(500).json({message: `${error}`})
     }
 }
 
