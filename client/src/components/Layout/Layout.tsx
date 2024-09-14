@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './layout.module.css'
 import { Layout as AntLayout } from 'antd'
 import { Header } from '../Header/Header'
+import { Footer } from '../Footer/Footer'
 
 type Props = {
     children: React.ReactNode
@@ -10,12 +11,16 @@ type Props = {
 
 export const Layout: React.FC<Props> = ({ children }) => {
   return (
-    <div className={styles.layout}>
-        <Header/>
-        <AntLayout.Content style={{ height: '80%' }}>
-            {children}
-        </AntLayout.Content>
-    </div>
+      <div className={styles.layout}>
+        <div className={styles.main}>
+          <Header/>
+          <AntLayout.Content>
+              {children}
+          </AntLayout.Content>
+        </div>
+        <Footer />
+      </div>
+
   )
 }
  

@@ -20,5 +20,5 @@ app.use(cookieParser());
 
 app.use('/api/user', usersRouter);
 app.use('/api/employees', createEmployees);
-
+app.use('/uploads', express.static('uploads'));
 module.exports = app;

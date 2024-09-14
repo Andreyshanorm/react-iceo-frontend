@@ -1,4 +1,7 @@
 const { prisma } = require('../prisma/prisma-client')
+const multer = require('multer');
+
+
 
 const getAll = async (req, res) => {
     try {
@@ -12,28 +15,24 @@ const getAll = async (req, res) => {
 }
 
 const addPerson = async (req, res) => {
-    try {
-        const data = req.body
+    const { firstName, lastName, age, role, userId, photo } = req.body;
 
-        if(!data.firstName || !data.lastName || !data.age || !data.role){
-            return res.status(400).json({message: 'Не все поля заполнены'})
-        }
-
-
-        const employee = await prisma.employee.create({
-            data: {
-                ...data,
-                userId: req.user.id
-            }
-        })
-
-        
-        return res.status(201).json(employee)
-
-
-    } catch (error) {
-        res.status(500).json({message: 'Что то пошло не так....'})
-    }
+  try {
+    const employee = await prisma.employee.create({
+      data: {
+        firstName,
+        lastName,
+        age,
+        role,
+        photo,
+        userId: req.user.id,
+      },
+    });
+    res.json(employee);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Ошибка при создании сотрудника');
+  }
 }
 
 const removePerson = async (req, res) => {
@@ -88,6 +87,88 @@ const getPerson = async (req, res) => {
 
 }
 
+const likePerson = async (req, res) => {
+    // const data = req.user
+    
+    const ownerId = req.user.id
+    const { id } = req.params
+
+    try {
+        const like = await prisma.employeeLike.create({
+            data: {
+            ownerId,
+              employeeId: id
+            },
+          });
+
+        res.status(200).json(like)
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json({message: 'Что то пошло не так....'})
+    }
+
+}
+
+const unLikePerson = async (req, res) => {
+    const { id } = req.params
+    const ownerId = req.user.id
+    
+    try {
+        const unlike = await prisma.employeeLike.delete({
+            where: {
+              ownerId
+            },
+          });
+
+        res.status(200).json({message: 'Лайк удалён'})
+    } catch (error) {
+        console.error('Ошибка при удалении:', error);
+        res.status(500).json({message: 'Что то пошло не так....'})
+    }
+
+}
+
+
+const dislikePerson = async (req, res) => {
+
+    const ownerId = req.user.id
+    const { id } = req.params
+
+    try {
+        const dislike = await prisma.employeeDislike.create({
+            data: {
+            ownerId,
+              employeeId: id
+            },
+          });
+
+        res.status(200).json(dislike)
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json({message: 'Что то пошло не так....'})
+    }
+
+}
+
+const unDislikePerson = async (req, res) => {
+    const { id } = req.params
+    const ownerId = req.user.id
+    try {
+        const person = await prisma.employeeDislike.delete({
+            where: {
+                ownerId
+            }
+        })
+
+        res.status(200).json(person)
+    } catch (error) {
+        res.status(500).json({message: 'Что то пошло не так....'})
+    }
+
+}
+
 
 
 module.exports = {
@@ -95,5 +176,9 @@ module.exports = {
     addPerson,
     removePerson,
     editPerson,
-    getPerson
+    getPerson,
+    likePerson,
+    unLikePerson,
+    dislikePerson,
+    unDislikePerson
 }

@@ -15,7 +15,11 @@ model User {
   email String
   password String
   name String
+  desicription String?
+  photo String?
   createEmployee Employee[]
+  likedItems   Like[]
+  dislikedItems Dislike[]
 }
 
 model Employee {
@@ -24,6 +28,37 @@ model Employee {
   lastName String
   age String
   role String
+  photo String?
   user User @relation(fields: [userId], references: [id])
   userId String
+  likes     EmployeeLike[]
+  dislikes  EmployeeDislike[]
 }
+
+model Like {
+  id       String @id @default(uuid())
+  item     String
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Dislike {
+  id       String @id @default(uuid())
+  item     String
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model EmployeeLike {
+  ownerId    String @id @default("temp_default_value")
+  employeeId String 
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model EmployeeDislike {
+  ownerId    String @id @default("temp_default_value")
+  employeeId String 
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+

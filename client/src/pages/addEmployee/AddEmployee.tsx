@@ -26,7 +26,22 @@ export const AddEmployee = () => {
     }, [isAuth, navigate])
 
 
-    const handleAddEmployee = async (data: Employee) => {
+    const handleAddEmployee = async (data: any) => {
+
+        const formData = new FormData();
+        
+        // Добавляем текстовые поля
+        formData.append('firstName', data.firstName);
+        formData.append('lastName', data.lastName);
+        formData.append('age', data.age);
+        formData.append('role', data.role);
+        
+        // Добавляем файл
+        if (data.photo && data.photo.file) {
+          formData.append('photo', data.photo.file.originFileObj);
+        }
+
+
         try {
             await addEmployee(data).unwrap();
 

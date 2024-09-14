@@ -6,7 +6,6 @@ const baseQuery = fetchBaseQuery({
     baseUrl: `http://localhost:5000/api`,
     prepareHeaders(headers, { getState }) {
         const token = (getState() as RootState).authSlice.user?.token || localStorage.getItem('token')
-
         if(token && token !== null){
             headers.set('authorization', `Bearer ${token}`)
         }

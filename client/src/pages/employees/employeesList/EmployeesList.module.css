@@ -9,10 +9,9 @@
 
 
 .personListItem{
+    position: relative;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
+    gap: 10px;
 }
 
 .personPhoto{

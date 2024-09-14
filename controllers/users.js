@@ -1,3 +1,4 @@
+
 const { prisma } = require("../prisma/prisma-client");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -83,7 +84,8 @@ const registration = async (req, res) => {
 };
 
 const current = async (req, res) => {
-  return res.status(200).json(req.user);
+  const data = { email, name, description, photo, id } = req.user
+  return res.status(200).json(data);
 };
 
 module.exports = {

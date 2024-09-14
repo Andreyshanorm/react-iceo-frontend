@@ -1,0 +1,18 @@
+.footer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.icon{
+    color: white;
+}
+
+.icons{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

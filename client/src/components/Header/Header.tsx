@@ -25,7 +25,7 @@ export const Header = () => {
         <TeamOutlined className={styles.teamIcon} />
         <Link to={isAuth ? paths.home : paths.login}>
           <CustomButton type="ghost">
-            <Typography.Title style={{ paddingTop: "8px" }} level={2}>
+            <Typography.Title style={{ color: 'white', paddingTop: "8px" }} level={2}>
               Сотрудники
             </Typography.Title>
           </CustomButton>
@@ -38,13 +38,13 @@ export const Header = () => {
             <Link className={styles.headerLink} to={paths.registration}>
               <CustomButton
                 type="ghost"
-                icon={<UserOutlined style={{ fontSize: "30px" }} />}
+                icon={<UserOutlined style={{ color: 'white', fontSize: "30px" }} />}
               >
                 <span
                   style={{
                     fontSize: "18px",
                     paddingTop: "8px",
-                    color: "rgba(255, 255, 255, 0.85)",
+                    color: 'white',
                   }}
                 >
                   Зарегестрироваться
@@ -54,13 +54,13 @@ export const Header = () => {
             <Link to={paths.login}>
               <CustomButton
                 type="ghost"
-                icon={<LoginOutlined style={{ fontSize: "30px" }} />}
+                icon={<LoginOutlined style={{ color: 'white', fontSize: "30px" }} />}
               >
                 <span
                   style={{
                     fontSize: "18px",
                     paddingTop: "8px",
-                    color: "rgba(255, 255, 255, 0.85)",
+                    color: 'white',
                   }}
                 >
                   Войти
@@ -71,7 +71,7 @@ export const Header = () => {
         ) : (
               <CustomButton
                 type="ghost"
-                icon={<LogoutOutlined style={{ fontSize: "30px" }} />}
+                icon={<LogoutOutlined style={{ fontSize: "30px", color: 'white' }} />}
                 onClick={handleLogOutCLick}
               >
               </CustomButton>

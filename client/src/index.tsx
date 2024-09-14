@@ -9,11 +9,16 @@ import './index.css';
 import { paths } from './paths';
 import { Login } from './pages/login/Login';
 import { Registration } from './pages/registration/Registration';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme, Watermark } from 'antd';
 import { Loading } from './features/auth/Loading';
 import { Employees } from './pages/employees/Employees';
 import { AddEmployee } from './pages/addEmployee/AddEmployee';
 import { Status } from './pages/status/Status';
+import { EmployeePage } from './pages/Employee/Employee';
+import { EditEmployee } from './pages/editEmployee/EditOneEmployee';
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -35,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: `${paths.status}/:status`,
     element: <Status/>
+  },
+  {
+    path: `${paths.employee}/:id`,
+    element: <EmployeePage/>
+  },
+  {
+    path: `${paths.employeeEdit}/:id`,
+    element: <EditEmployee/>
   }
 ])
 
@@ -48,9 +61,13 @@ root.render(
       <ConfigProvider theme={{
         algorithm: theme.darkAlgorithm
       }}>
-        <Loading>
-          <RouterProvider router={router} />
-        </Loading>
+        <Watermark content='@By Andreyshanorm'>
+          <Loading>
+            <RouterProvider router={router} />
+          </Loading>
+
+        </Watermark>
+        
       </ConfigProvider>
     </Provider>
   </React.StrictMode>
